@@ -1,3 +1,8 @@
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
 name: Nicominecith Musik - Debug APK (kein Signing nötig)
 
 # Manuell startbar über den "Actions"-Tab auf GitHub ("Run workflow"),
