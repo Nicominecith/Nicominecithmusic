@@ -1,0 +1,48 @@
+name: Nicominecith Musik - Debug APK (kein Signing nötig)
+
+# Manuell startbar über den "Actions"-Tab auf GitHub ("Run workflow"),
+# oder automatisch bei jedem Push auf main.
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+jobs:
+  build_debug:
+    name: Build Debug APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Init metroproto submodule
+        run: git submodule update --init metroproto
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v5
+        with:
+          java-version: "21"
+          distribution: "temurin"
+
+      - name: Set Up Gradle
+        uses: gradle/actions/setup-gradle@v5
+
+      - name: Setup and Generate Protobuf
+        uses: ./.github/actions/setup-protobuf
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      # Debug-Build wird automatisch mit dem Android-Debug-Keystore signiert
+      # und kann direkt auf einem Gerät installiert werden - keine Secrets nötig.
+      - name: Build Debug APK (FOSS flavor)
+        run: ./gradlew --console=plain assembleFossDebug --warning-mode summary -x lint
+
+      - name: Upload Debug APK
+        uses: actions/upload-artifact@v6
+        with:
+          name: nicominecith-musik-debug-apk
+          path: app/build/outputs/apk/foss/debug/*.apk
