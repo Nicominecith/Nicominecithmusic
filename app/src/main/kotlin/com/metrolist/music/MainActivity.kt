@@ -382,14 +382,21 @@ class MainActivity : ComponentActivity() {
         val splashScreen = installSplashScreen()
         if (dataStore.get(SplashScreenEnabledKey, true)) {
             splashScreen.setOnExitAnimationListener { splashScreenView ->
-                splashScreenView.iconView
-                    .animate()
-                    .setDuration(400L)
-                    .scaleX(1.15f)
-                    .scaleY(1.15f)
-                    .alpha(0f)
-                    .withEndAction { splashScreenView.remove() }
-                    .start()
+                // Some OEM builds (seen on Samsung/One UI) don't populate the icon
+                // view and throw a NullPointerException here - never let a cosmetic
+                // exit animation crash the app, just remove the splash if that happens.
+                try {
+                    splashScreenView.iconView
+                        .animate()
+                        .setDuration(400L)
+                        .scaleX(1.15f)
+                        .scaleY(1.15f)
+                        .alpha(0f)
+                        .withEndAction { splashScreenView.remove() }
+                        .start()
+                } catch (e: Exception) {
+                    splashScreenView.remove()
+                }
             }
         }
 
