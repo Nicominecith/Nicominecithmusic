@@ -130,9 +130,6 @@ android {
                 applicationIdSuffix = ".debug"
             }
             isDebuggable = true
-            if (appNameOverride == null) {
-                resValue("string", "app_name", "Nicominecith Musik Debug")
-            }
             signingConfig =
                 if (workflowDebugKeystoreFile != null) {
                     signingConfigs.getByName("workflowDebug")
