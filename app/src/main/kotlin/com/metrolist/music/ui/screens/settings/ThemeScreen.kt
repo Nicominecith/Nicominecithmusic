@@ -22,6 +22,9 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.material3.Switch
+import com.metrolist.music.ui.component.Material3SettingsGroup
+import com.metrolist.music.ui.component.Material3SettingsItem
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -78,6 +81,7 @@ import com.metrolist.music.constants.DynamicThemeKey
 import com.metrolist.music.constants.PureBlackKey
 import com.metrolist.music.constants.PureBlackMiniPlayerKey
 import com.metrolist.music.constants.SelectedThemeColorKey
+import com.metrolist.music.constants.SplashScreenEnabledKey
 import com.metrolist.music.ui.theme.DefaultThemeColor
 import com.metrolist.music.ui.theme.MetrolistTheme
 import com.metrolist.music.utils.rememberEnumPreference
@@ -90,7 +94,8 @@ data class ThemePalette(
 
 val PaletteColors = listOf(
     ThemePalette(R.string.palette_dynamic, Color.Transparent), // Sentinel for System/Dynamic colors
-    ThemePalette(R.string.palette_spotify_green, com.metrolist.music.ui.theme.SpotifyGreen), // App default brand color
+    ThemePalette(R.string.palette_nicominecith_purple, com.metrolist.music.ui.theme.NicominecithPurple), // App default brand color
+    ThemePalette(R.string.palette_spotify_green, com.metrolist.music.ui.theme.SpotifyGreen),
     ThemePalette(R.string.palette_crimson, Color(0xFFEC5464)), // Slightly shifted from DefaultThemeColor (0xFFED5564) to avoid conflict
     ThemePalette(R.string.palette_rose, Color(0xFFD81B60)),
     ThemePalette(R.string.palette_purple, Color(0xFF8E24AA)),
@@ -147,6 +152,11 @@ fun ThemeScreen(
         onDynamicThemeChange(isDynamicColor)
     }
 
+    val (splashAnimationEnabled, onSplashAnimationChange) = rememberPreference(
+        SplashScreenEnabledKey,
+        defaultValue = true
+    )
+
     if (isLandscape) {
         LandscapeThemeLayout(
             innerPadding = PaddingValues(0.dp),
@@ -166,6 +176,25 @@ fun ThemeScreen(
             onPureBlackChange = onPureBlackChange,
             selectedThemeColor = selectedThemeColor,
             onSelectedThemeColorChange = handleColorSelection
+        )
+    }
+
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Material3SettingsGroup(
+            title = stringResource(R.string.splash_animation),
+            items = listOf(
+                Material3SettingsItem(
+                    title = { Text(stringResource(R.string.splash_animation)) },
+                    description = { Text(stringResource(R.string.splash_animation_description)) },
+                    trailingContent = {
+                        Switch(
+                            checked = splashAnimationEnabled,
+                            onCheckedChange = onSplashAnimationChange,
+                        )
+                    },
+                    onClick = { onSplashAnimationChange(!splashAnimationEnabled) },
+                ),
+            ),
         )
     }
 

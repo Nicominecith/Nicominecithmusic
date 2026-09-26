@@ -28,9 +28,12 @@ import com.materialkolor.score.Score
 
 val DefaultThemeColor = Color(0xFFED5564)
 
-// Spotify-style green accent, used as the app's fixed default brand color
-// (kept separate from DefaultThemeColor, which is the sentinel for "System/Dynamic colors")
+// Spotify-style green accent, kept selectable in the theme picker
+// (separate from DefaultThemeColor, which is the sentinel for "System/Dynamic colors")
 val SpotifyGreen = Color(0xFF1DB954)
+
+// Nicominecith Musik brand accent (soft violet/"liquid glass" look) - the app's default color
+val NicominecithPurple = Color(0xFFA692F0)
 
 @Composable
 fun MetrolistTheme(

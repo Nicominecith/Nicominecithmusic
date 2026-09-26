@@ -38,22 +38,10 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Generate Debug Keystore
-        run: |
-          keytool -genkeypair -v \
-            -keystore app/workflow-debug.keystore \
-            -storepass android \
-            -alias androiddebugkey \
-            -keypass android \
-            -keyalg RSA \
-            -keysize 2048 \
-            -validity 10000 \
-            -dname "CN=Nicominecith Musik Debug,O=Nicominecith,C=DE"
-
+      # Debug-Build wird automatisch mit dem Android-Debug-Keystore signiert
+      # und kann direkt auf einem Gerät installiert werden - keine Secrets nötig.
       - name: Build Debug APK (FOSS flavor)
         run: ./gradlew --console=plain assembleFossDebug --warning-mode summary -x lint
-        env:
-          METROLIST_DEBUG_KEYSTORE_PATH: workflow-debug.keystore
 
       - name: Upload Debug APK
         uses: actions/upload-artifact@v6

@@ -19,6 +19,7 @@ import android.view.View
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
@@ -148,6 +149,7 @@ import com.metrolist.music.constants.PreferredLyricsProviderKey
 import com.metrolist.music.constants.PureBlackKey
 import com.metrolist.music.constants.SYSTEM_DEFAULT
 import com.metrolist.music.constants.SelectedThemeColorKey
+import com.metrolist.music.constants.SplashScreenEnabledKey
 import com.metrolist.music.constants.SimpMusicMigrationDoneKey
 import com.metrolist.music.constants.SlimNavBarHeight
 import com.metrolist.music.constants.SlimNavBarKey
@@ -182,6 +184,7 @@ import com.metrolist.music.ui.screens.settings.DarkMode
 import com.metrolist.music.ui.screens.settings.NavigationTab
 import com.metrolist.music.ui.theme.ColorSaver
 import com.metrolist.music.ui.theme.DefaultThemeColor
+import com.metrolist.music.ui.theme.NicominecithPurple
 import com.metrolist.music.ui.theme.SpotifyGreen
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource
@@ -372,6 +375,24 @@ class MainActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Boot/splash animation. The icon flash on Android 12+ is drawn by the OS from
+        // the manifest theme and can't be fully suppressed at runtime; the setting below
+        // (Settings -> Design -> Startanimation) controls the nicer fade+zoom exit we add
+        // on top of it.
+        val splashScreen = installSplashScreen()
+        if (dataStore.get(SplashScreenEnabledKey, true)) {
+            splashScreen.setOnExitAnimationListener { splashScreenView ->
+                splashScreenView.iconView
+                    .animate()
+                    .setDuration(400L)
+                    .scaleX(1.15f)
+                    .scaleY(1.15f)
+                    .alpha(0f)
+                    .withEndAction { splashScreenView.remove() }
+                    .start()
+            }
+        }
+
         super.onCreate(savedInstanceState)
         window.decorView.layoutDirection = View.LAYOUT_DIRECTION_LTR
         WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -529,7 +550,7 @@ class MainActivity : ComponentActivity() {
                 pureBlackEnabled && useDarkTheme
             }
 
-        val (selectedThemeColorInt) = rememberPreference(SelectedThemeColorKey, defaultValue = SpotifyGreen.toArgb())
+        val (selectedThemeColorInt) = rememberPreference(SelectedThemeColorKey, defaultValue = NicominecithPurple.toArgb())
         val selectedThemeColor = Color(selectedThemeColorInt)
 
         val showChangelog = rememberSaveable { mutableStateOf(false) }

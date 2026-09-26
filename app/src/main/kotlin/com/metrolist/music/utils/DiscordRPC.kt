@@ -73,7 +73,7 @@ class DiscordRPC(
                 song
             ).take(BUTTON_LABEL_MAX)
             val url = resolveVariables(
-                button2Url.ifEmpty { "https://github.com/FrancescoGrazioso/Meld" },
+                button2Url.ifEmpty { "https://github.com/Nicominecith/Nicominecithmusic" },
                 song
             ).trim()
             if (label.isNotBlank() && url.isValidButtonUrl()) {
