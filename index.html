@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nicominecith Music | Spotify & YouTube Music werbefrei, ohne Premium</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{
+  --bg:#08080c; --surface-low:#0d0d11; --card:#121218; --card-b:rgba(255,255,255,.08);
+  --on:#f5f5f7; --on-var:#a3a3ad; --outline:#3a3a42; --outline-var:rgba(255,255,255,.08);
+  --cyan:#00e5ff; --blue:#4a9eff; --orange:#ff9900; --red:#ff2d2d; --spotify:#1db954;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth; scroll-padding-top:5rem;}
+body{margin:0;font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--on);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+.mono{font-family:'JetBrains Mono',monospace;}
+.text-gradient{background:linear-gradient(90deg,var(--cyan),var(--blue),var(--orange));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.glass{background:rgba(255,255,255,.03);border:1px solid var(--card-b);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);}
+.btn-filled{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 28px;border-radius:999px;background:linear-gradient(90deg,var(--cyan),var(--blue));color:#04060a;font-weight:700;font-size:14.5px;text-decoration:none;box-shadow:0 0 0 rgba(0,229,255,.4);animation:glowPulse 2.8s ease-in-out infinite;}
+.btn-outline{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 26px;border-radius:999px;border:1px solid var(--outline);color:var(--on);font-weight:600;font-size:14.5px;text-decoration:none;transition:border-color .2s,background .2s;}
+.btn-outline:hover{border-color:var(--on-var);background:rgba(255,255,255,.04);}
+@keyframes glowPulse{0%,100%{box-shadow:0 0 0 rgba(0,229,255,.35)}50%{box-shadow:0 0 34px rgba(0,229,255,.35)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.float{animation:float 6s ease-in-out infinite;}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.marquee-track{display:flex;width:max-content;animation:marquee 32s linear infinite;}
+@keyframes wave{0%,100%{height:5px}50%{height:16px}}
+.wbar{width:3px;height:5px;border-radius:2px;background:var(--cyan);animation:wave 1s ease-in-out infinite;}
+@keyframes bass{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:.9;transform:scale(1.08)}}
+.bass{animation:bass 5s ease-in-out infinite;}
+@keyframes cursor{0%,50%{opacity:1}51%,100%{opacity:0}}
+.cursor{animation:cursor 1s step-start infinite;}
+.mobile-menu{max-height:0;overflow:hidden;transition:max-height .3s ease;}
+.mobile-menu.open{max-height:16rem;}
+header{transition:background-color .3s,border-color .3s;padding-top:env(safe-area-inset-top,0px);}
+header.solid{background:rgba(8,8,12,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--outline-var);}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important;}}
+@keyframes heroIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.hleft{animation:heroIn .7s ease-out both;}
+.hright{animation:heroIn .7s ease-out .15s both;}
+.glass{transition:background-color .25s,border-color .25s;}
+.glass:hover{background:rgba(255,255,255,.05);}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+<linearGradient id="cyanBlue" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00e5ff"/><stop offset="100%" stop-color="#0066ff"/></linearGradient>
+<linearGradient id="orangeRed" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ff9900"/><stop offset="100%" stop-color="#ff1a1a"/></linearGradient>
+</defs>
+<symbol id="logo" viewBox="0 0 500 500">
+<circle cx="90" cy="270" r="14" fill="#00e5ff"/><rect x="135" y="210" width="22" height="130" rx="11" fill="url(#cyanBlue)"/><rect x="180" y="160" width="22" height="200" rx="11" fill="url(#cyanBlue)"/><circle cx="191" cy="390" r="12" fill="#0066ff"/>
+<circle cx="410" cy="270" r="14" fill="#ff1a1a"/><rect x="365" y="190" width="22" height="150" rx="11" fill="url(#orangeRed)"/><rect x="320" y="150" width="22" height="210" rx="11" fill="url(#orangeRed)"/><circle cx="331" cy="400" r="12" fill="#ff9900"/>
+<path d="M250 100C290 100 315 130 315 165C315 200 280 220 250 240C220 260 210 285 210 310C210 335 230 350 250 350C270 350 285 335 285 320C285 305 270 295 255 295C240 295 230 305 230 320" fill="none" stroke="#fff" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M250 240C280 225 300 200 290 170C285 150 265 140 250 140C225 140 215 165 215 185C215 220 245 240 265 260C295 290 305 320 285 355C270 380 240 410 210 405C190 400 185 380 200 370C215 360 235 375 245 385C260 400 240 370 230 340" fill="none" stroke="url(#orangeRed)" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" opacity=".95"/>
+<circle cx="210" cy="405" r="24" fill="#fff"/><circle cx="210" cy="405" r="14" fill="#a0a0a0"/>
+</symbol>
+</svg>
+
+<header id="hdr" class="fixed top-0 left-0 right-0 z-50" style="height:64px">
+<div style="max-width:1280px;margin:0 auto;height:100%;display:flex;align-items:center;justify-content:space-between;padding:0 20px">
+  <a href="#" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit">
+    <div style="width:38px;height:38px;border-radius:11px;background:#111318;border:1px solid #2a2a30;padding:6px"><svg viewBox="0 0 500 500" width="100%" height="100%"><use href="#logo"/></svg></div>
+    <div>
+      <div style="font-weight:800;font-size:16px" class="lowercase">nicominecith</div>
+      <div class="mono" style="font-size:10px;color:var(--on-var)">Werbefrei · ohne Premium</div>
+    </div>
+  </a>
+  <nav style="display:none;gap:4px" class="dnav">
+    <a href="#features" style="padding:8px 14px;border-radius:999px;color:var(--on-var);text-decoration:none;font-size:14px">Features</a>
+    <a href="#showcase" style="padding:8px 14px;border-radius:999px;color:var(--on-var);text-decoration:none;font-size:14px">Geräte</a>
+    <a href="#faq" style="padding:8px 14px;border-radius:999px;color:var(--on-var);text-decoration:none;font-size:14px">FAQ</a>
+  </nav>
+  <div style="display:flex;align-items:center;gap:10px">
+    <a href="https://github.com/Nicominecith/Nicominecithmusic" target="_blank" rel="noopener" class="btn-outline dnav" style="height:36px;padding:0 16px;font-size:13px"><i class="fa-brands fa-github"></i><span>GitHub</span></a>
+    <a href="https://github.com/Nicominecith/Nicominecithmusic/releases/download/v1.0/NicominecithMusic.apk" onclick="toast()" class="btn-filled dnav" style="height:36px;padding:0 16px;font-size:13px"><i class="fa-solid fa-download"></i><span>Download</span></a>
+    <button onclick="toggleMenu()" aria-label="Menü" style="width:40px;height:40px;border-radius:11px;border:1px solid var(--outline-var);background:transparent;color:var(--on);display:flex;align-items:center;justify-content:center" class="mnav"><i id="mIcon" class="fa-solid fa-bars"></i></button>
+  </div>
+</div>
+<div id="mobileMenu" class="mobile-menu mnav" style="border-top:1px solid var(--outline-var)">
+  <nav style="display:flex;flex-direction:column;padding:12px 20px;gap:2px">
+    <a href="#features" onclick="toggleMenu()" style="padding:12px 0;color:var(--on-var);text-decoration:none;border-bottom:1px solid var(--outline-var)">Features</a>
+    <a href="#showcase" onclick="toggleMenu()" style="padding:12px 0;color:var(--on-var);text-decoration:none;border-bottom:1px solid var(--outline-var)">Geräte</a>
+    <a href="#faq" onclick="toggleMenu()" style="padding:12px 0;color:var(--on-var);text-decoration:none;border-bottom:1px solid var(--outline-var)">FAQ</a>
+    <a href="https://github.com/Nicominecith/Nicominecithmusic/releases/download/v1.0/NicominecithMusic.apk" onclick="toast()" class="btn-filled" style="margin-top:12px;justify-content:center"><i class="fa-solid fa-download"></i>Download APK</a>
+  </nav>
+</div>
+</header>
+
+<main>
+<section style="position:relative;min-height:92vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:64px;overflow:hidden">
+  <div class="bass" style="position:absolute;top:20%;left:15%;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(0,229,255,.08),transparent 70%);pointer-events:none"></div>
+  <div class="bass" style="position:absolute;bottom:15%;right:15%;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(255,153,0,.08),transparent 70%);pointer-events:none;animation-delay:1.5s"></div>
+
+  <div style="max-width:1280px;margin:0 auto;padding:60px 24px;display:flex;flex-wrap:wrap;align-items:center;gap:56px;position:relative;z-index:2">
+    <div style="flex:1 1 420px;text-align:center" class="hleft">
+      <span class="mono" style="display:inline-block;padding:8px 16px;border-radius:999px;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.25);color:var(--cyan);font-size:12px;margin-bottom:22px">v1.0 — jetzt verfügbar</span>
+      <h1 style="font-weight:800;line-height:1.06;letter-spacing:-.03em;font-size:clamp(2.4rem,6vw,4.6rem);margin:0 0 22px">
+        Musik hören.<br><span class="text-gradient">Spotify & YouTube Music.</span><br>Werbefrei. Ohne Premium.
+      </h1>
+      <p style="color:var(--on-var);font-size:clamp(15px,2vw,18px);max-width:540px;margin:0 auto 34px;line-height:1.6">
+        Nicominecith verbindet Spotify Music und YouTube Music in einer App. Höre und schau beides werbefrei – ganz ohne Spotify Premium oder YouTube Premium.
+      </p>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-bottom:44px">
+        <a href="https://github.com/Nicominecith/Nicominecithmusic/releases/download/v1.0/NicominecithMusic.apk" onclick="toast()" class="btn-filled"><i class="fa-solid fa-download"></i>APK herunterladen</a>
+        <a href="https://github.com/Nicominecith/Nicominecithmusic" target="_blank" rel="noopener" class="btn-outline"><i class="fa-brands fa-github"></i>Auf GitHub ansehen</a>
+      </div>
+      <div style="display:flex;justify-content:center;gap:34px">
+        <div><div style="font-size:28px;font-weight:800;letter-spacing:-.01em">100%</div><div class="mono" style="font-size:11px;color:var(--on-var);margin-top:5px">Werbefrei</div></div>
+        <div><div style="font-size:28px;font-weight:800;letter-spacing:-.01em">0€</div><div class="mono" style="font-size:11px;color:var(--on-var);margin-top:5px">Kein Premium</div></div>
+        <div><div style="font-size:28px;font-weight:800;letter-spacing:-.01em">8.0+</div><div class="mono" style="font-size:11px;color:var(--on-var);margin-top:5px">Android</div></div>
+      </div>
+    </div>
+
+    <div style="flex:0 1 320px;display:flex;justify-content:center" class="hright">
+      <div class="float" style="position:relative;width:270px">
+        <div style="position:relative;border-radius:44px;background:linear-gradient(135deg,#1a1a1e,#0b0b0e);border:9px solid #08080a;box-shadow:0 40px 80px rgba(0,0,0,.9),0 0 60px rgba(0,229,255,.15);overflow:hidden">
+          <div style="display:flex;justify-content:center;padding:14px 0 8px"><div style="width:70px;height:14px;background:#000;border-radius:999px"></div></div>
+          <div style="background:#101015;border-radius:26px 26px 0 0;padding:18px;display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;align-items:center;justify-content:between;gap:8px">
+              <div style="width:30px;height:30px;border-radius:9px;background:#0b0b0e;border:1px solid #2a2a30;padding:4px"><svg viewBox="0 0 500 500" width="100%" height="100%"><use href="#logo"/></svg></div>
+              <span style="font-weight:700;font-size:13px" class="lowercase">nicominecith</span>
+            </div>
+            <div style="background:#0b0b0e;border:1px solid #222228;border-radius:16px;padding:12px;display:flex;gap:10px;align-items:center">
+              <div style="width:44px;height:44px;border-radius:10px;background:#0b0b0e;border:1px solid #222228;display:flex;align-items:center;justify-content:center;padding:8px"><svg viewBox="0 0 500 500" width="100%" height="100%"><use href="#logo"/></svg></div>
+              <div style="min-width:0">
+                <div class="mono" style="font-size:9px;color:var(--cyan)">Spotify & YouTube · werbefrei</div>
+                <div style="font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Nicominecith V1.0</div>
+              </div>
+            </div>
+            <div style="background:#0b0b0e;border:1px solid #222228;border-radius:16px;padding:12px">
+              <div style="height:4px;border-radius:99px;background:#222228;overflow:hidden;margin-bottom:10px"><div style="width:60%;height:100%;background:linear-gradient(90deg,var(--cyan),var(--blue),var(--orange))"></div></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;color:#ccc;padding:0 6px">
+                <i class="fa-solid fa-backward-step" style="font-size:13px"></i>
+                <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(90deg,var(--cyan),var(--blue));display:flex;align-items:center;justify-content:center;color:#04060a"><i class="fa-solid fa-play" style="font-size:11px"></i></div>
+                <i class="fa-solid fa-forward-step" style="font-size:13px"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="position:absolute;inset:-14px;z-index:-1;border-radius:56px;background:radial-gradient(ellipse 90% 50% at 50% 20%,rgba(0,229,255,.22),transparent 70%)"></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="position:absolute;bottom:26px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px">
+    <div style="display:flex;gap:3px;align-items:flex-end;height:18px" aria-hidden="true">
+      <div class="wbar" style="animation-delay:0s"></div><div class="wbar" style="animation-delay:.1s"></div><div class="wbar" style="animation-delay:.2s"></div><div class="wbar" style="animation-delay:.3s"></div><div class="wbar" style="animation-delay:.4s"></div><div class="wbar" style="animation-delay:.5s"></div><div class="wbar" style="animation-delay:.6s"></div>
+    </div>
+    <i class="fa-solid fa-chevron-down" style="color:var(--outline);font-size:13px"></i>
+  </div>
+</section>
+
+<div style="padding:36px 0;border-top:1px solid var(--outline-var);border-bottom:1px solid var(--outline-var);overflow:hidden" aria-hidden="true">
+  <div class="marquee-track" id="mqTrack"></div>
+</div>
+
+<section id="features" style="padding:80px 24px;background:var(--surface-low);border-bottom:1px solid var(--outline-var)">
+  <div style="max-width:1280px;margin:0 auto">
+    <div style="text-align:center;max-width:560px;margin:0 auto 48px">
+      <h2 style="font-size:clamp(1.6rem,3.4vw,2.4rem);font-weight:800;margin:0 0 12px">Beide Plattformen. Kein Premium nötig.</h2>
+      <p style="color:var(--on-var);margin:0">Spotify Music und YouTube Music, komplett werbefrei</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px">
+      <div class="glass" style="border-radius:20px;padding:28px;text-align:center;border-color:rgba(29,185,84,.2)">
+        <div style="width:56px;height:56px;border-radius:16px;background:rgba(29,185,84,.1);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;color:var(--spotify);font-size:24px"><i class="fa-brands fa-spotify"></i></div>
+        <h3 style="font-size:17px;font-weight:700;margin:0 0 6px">Spotify Music, werbefrei</h3>
+        <p style="color:var(--on-var);font-size:13.5px;margin:0">Höre Playlists, Alben und Empfehlungen – ganz ohne Spotify Premium.</p>
+      </div>
+      <div class="glass" style="border-radius:20px;padding:28px;text-align:center;border-color:rgba(255,45,45,.2)">
+        <div style="width:56px;height:56px;border-radius:16px;background:rgba(255,45,45,.1);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;color:var(--red);font-size:24px"><i class="fa-brands fa-youtube"></i></div>
+        <h3 style="font-size:17px;font-weight:700;margin:0 0 6px">YouTube Music, werbefrei</h3>
+        <p style="color:var(--on-var);font-size:13.5px;margin:0">Schau und höre Songs und Live-Sets – ganz ohne YouTube Premium.</p>
+      </div>
+      <div class="glass" style="border-radius:20px;padding:28px;text-align:center;border-color:rgba(0,229,255,.2)">
+        <div style="width:56px;height:56px;border-radius:16px;background:rgba(0,229,255,.1);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;color:var(--cyan);font-size:24px"><i class="fa-solid fa-volume-high"></i></div>
+        <h3 style="font-size:17px;font-weight:700;margin:0 0 6px">Hintergrundwiedergabe</h3>
+        <p style="color:var(--on-var);font-size:13.5px;margin:0">Läuft weiter, auch bei ausgeschaltetem Display – ohne Abo.</p>
+      </div>
+      <div class="glass" style="border-radius:20px;padding:28px;text-align:center;border-color:rgba(255,153,0,.2)">
+        <div style="width:56px;height:56px;border-radius:16px;background:rgba(255,153,0,.1);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;color:var(--orange);font-size:24px"><i class="fa-solid fa-shield-halved"></i></div>
+        <h3 style="font-size:17px;font-weight:700;margin:0 0 6px">Keine Werbeunterbrechungen</h3>
+        <p style="color:var(--on-var);font-size:13.5px;margin:0">Weder bei Spotify noch bei YouTube – ohne Premium-Kosten.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="showcase" style="padding:80px 24px">
+  <div style="max-width:1280px;margin:0 auto">
+    <div style="text-align:center;max-width:560px;margin:0 auto 48px">
+      <h2 style="font-size:clamp(1.6rem,3.4vw,2.4rem);font-weight:800;margin:0 0 12px">Für jedes Android-Gerät</h2>
+      <p style="color:var(--on-var);margin:0">Vom kompakten Handy bis zum großen Tablet</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px">
+      <div class="glass" style="border-radius:22px;padding:34px;text-align:center">
+        <div style="width:64px;height:64px;border-radius:18px;background:rgba(0,229,255,.08);display:flex;align-items:center;justify-content:center;margin:0 auto 18px;color:var(--cyan);font-size:28px"><i class="fa-solid fa-mobile-screen"></i></div>
+        <h3 style="font-size:19px;font-weight:700;margin:0 0 8px">Smartphones</h3>
+        <p style="color:var(--on-var);font-size:13.5px;margin:0 0 16px">Einhandbedienung, kompakter Player, flüssige Animationen.</p>
+        <span class="mono" style="font-size:11px;color:var(--cyan)"><i class="fa-solid fa-check"></i> Vollständig kompatibel</span>
+      </div>
+      <div class="glass" style="border-radius:22px;padding:34px;text-align:center">
+        <div style="width:64px;height:64px;border-radius:18px;background:rgba(255,153,0,.08);display:flex;align-items:center;justify-content:center;margin:0 auto 18px;color:var(--orange);font-size:28px"><i class="fa-solid fa-tablet-screen-button"></i></div>
+        <h3 style="font-size:19px;font-weight:700;margin:0 0 8px">Tablets</h3>
+        <p style="color:var(--on-var);font-size:13.5px;margin:0 0 16px">Erweitertes Layout mit übersichtlicher Playlist-Verwaltung.</p>
+        <span class="mono" style="font-size:11px;color:var(--orange)"><i class="fa-solid fa-check"></i> Split-View ready</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" style="padding:80px 24px;background:var(--surface-low);border-top:1px solid var(--outline-var)">
+  <div style="max-width:720px;margin:0 auto">
+    <div style="text-align:center;margin-bottom:44px">
+      <h2 style="font-size:clamp(1.6rem,3.4vw,2.4rem);font-weight:800;margin:0">Häufig gestellte Fragen</h2>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div class="glass" style="border-radius:16px;overflow:hidden">
+        <button onclick="faq(this)" style="width:100%;background:none;border:none;color:var(--on);padding:18px 20px;text-align:left;font-weight:600;font-size:14.5px;display:flex;justify-content:space-between;align-items:center;gap:12px;cursor:pointer"><span>Wie installiere ich die APK?</span><i class="fa-solid fa-chevron-down" style="color:var(--on-var);transition:transform .2s"></i></button>
+        <div style="display:none;padding:0 20px 18px;color:var(--on-var);font-size:13.5px;line-height:1.7">1. „Download"-Button tippen · 2. Datei öffnen · 3. „Unbekannte Quellen" erlauben, falls nötig · 4. Installation abschließen.</div>
+      </div>
+      <div class="glass" style="border-radius:16px;overflow:hidden">
+        <button onclick="faq(this)" style="width:100%;background:none;border:none;color:var(--on);padding:18px 20px;text-align:left;font-weight:600;font-size:14.5px;display:flex;justify-content:space-between;align-items:center;gap:12px;cursor:pointer"><span>Brauche ich Spotify oder YouTube Premium?</span><i class="fa-solid fa-chevron-down" style="color:var(--on-var);transition:transform .2s"></i></button>
+        <div style="display:none;padding:0 20px 18px;color:var(--on-var);font-size:13.5px;line-height:1.7">Nein. Nicominecith funktioniert komplett ohne Premium-Abo – bei Spotify Music genauso wie bei YouTube Music, inklusive werbefreier Wiedergabe.</div>
+      </div>
+      <div class="glass" style="border-radius:16px;overflow:hidden">
+        <button onclick="faq(this)" style="width:100%;background:none;border:none;color:var(--on);padding:18px 20px;text-align:left;font-weight:600;font-size:14.5px;display:flex;justify-content:space-between;align-items:center;gap:12px;cursor:pointer"><span>Ist die App sicher und kostenlos?</span><i class="fa-solid fa-chevron-down" style="color:var(--on-var);transition:transform .2s"></i></button>
+        <div style="display:none;padding:0 20px 18px;color:var(--on-var);font-size:13.5px;line-height:1.7">Ja, Nicominecith ist komplett kostenlos. Releases werden direkt über GitHub bereitgestellt.</div>
+      </div>
+      <div class="glass" style="border-radius:16px;overflow:hidden">
+        <button onclick="faq(this)" style="width:100%;background:none;border:none;color:var(--on);padding:18px 20px;text-align:left;font-weight:600;font-size:14.5px;display:flex;justify-content:space-between;align-items:center;gap:12px;cursor:pointer"><span>Welche Android-Version wird benötigt?</span><i class="fa-solid fa-chevron-down" style="color:var(--on-var);transition:transform .2s"></i></button>
+        <div style="display:none;padding:0 20px 18px;color:var(--on-var);font-size:13.5px;line-height:1.7">Mindestens Android 8.0 (Oreo) für stabiles Streaming.</div>
+      </div>
+      <div class="glass" style="border-radius:16px;overflow:hidden">
+        <button onclick="faq(this)" style="width:100%;background:none;border:none;color:var(--on);padding:18px 20px;text-align:left;font-weight:600;font-size:14.5px;display:flex;justify-content:space-between;align-items:center;gap:12px;cursor:pointer"><span>Gibt es iOS oder PC?</span><i class="fa-solid fa-chevron-down" style="color:var(--on-var);transition:transform .2s"></i></button>
+        <div style="display:none;padding:0 20px 18px;color:var(--on-var);font-size:13.5px;line-height:1.7">Aktuell exklusiv für Android, für beste Performance auf mobilen Geräten.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding:96px 24px;position:relative;overflow:hidden">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 100%,rgba(0,229,255,.08),transparent 60%);pointer-events:none"></div>
+  <div class="glass" style="max-width:640px;margin:0 auto;text-align:center;position:relative;z-index:1;border-radius:32px;padding:56px 32px">
+    <h2 style="font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;letter-spacing:-.02em;margin:0 0 18px">Werbefrei hören.<br><span class="text-gradient">Ohne Premium.</span></h2>
+    <p style="color:var(--on-var);margin:0 0 36px">Lade Nicominecith herunter und nutze Spotify Music sowie YouTube Music werbefrei – ganz ohne Premium-Abo.</p>
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:14px">
+      <a href="https://github.com/Nicominecith/Nicominecithmusic/releases/download/v1.0/NicominecithMusic.apk" onclick="toast()" class="btn-filled"><i class="fa-solid fa-download"></i>Nicominecith laden</a>
+      <a href="https://github.com/Nicominecith/Nicominecithmusic" target="_blank" rel="noopener" class="btn-outline"><i class="fa-brands fa-github"></i>Repository ansehen</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<div class="mono" style="position:fixed;bottom:16px;right:16px;z-index:40;font-size:11px;padding:7px 12px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid var(--outline-var);color:#666670;user-select:none">&gt; nico<span class="cursor">|</span></div>
+
+<footer style="background:var(--surface-low);border-top:1px solid var(--outline-var);padding:60px 24px 30px">
+  <div style="max-width:1280px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:40px;margin-bottom:44px">
+      <div style="grid-column:span 2;min-width:240px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+          <div style="width:42px;height:42px;border-radius:12px;background:#111318;border:1px solid #2a2a30;padding:7px"><svg viewBox="0 0 500 500" width="100%" height="100%"><use href="#logo"/></svg></div>
+          <div><div style="font-weight:800" class="lowercase">nicominecith</div><div class="mono" style="font-size:11px;color:var(--on-var)">Music Player</div></div>
+        </div>
+        <p style="color:var(--on-var);font-size:13.5px;max-width:280px;line-height:1.6;margin:0 0 16px">Eine Android-App für Spotify Music und YouTube Music – werbefrei und ganz ohne Premium-Abo.</p>
+        <div class="mono" style="display:inline-flex;align-items:center;gap:8px;font-size:11px;padding:8px 14px;border-radius:12px;background:rgba(0,229,255,.06);border:1px solid rgba(0,229,255,.2);color:var(--cyan)"><span style="width:7px;height:7px;border-radius:50%;background:var(--cyan)"></span>nico.signal.active</div>
+      </div>
+      <div>
+        <h4 style="font-size:12px;letter-spacing:.03em;color:var(--on-var);margin:0 0 14px">Produkt</h4>
+        <div style="display:flex;flex-direction:column;gap:10px;font-size:13.5px">
+          <a href="#features" style="color:var(--on-var);text-decoration:none">Features</a>
+          <a href="#showcase" style="color:var(--on-var);text-decoration:none">Geräte</a>
+          <a href="#faq" style="color:var(--on-var);text-decoration:none">FAQ</a>
+        </div>
+      </div>
+      <div>
+        <h4 style="font-size:12px;letter-spacing:.03em;color:var(--on-var);margin:0 0 14px">Community</h4>
+        <div style="display:flex;flex-direction:column;gap:10px;font-size:13.5px">
+          <a href="https://github.com/Nicominecith/Nicominecithmusic" target="_blank" rel="noopener" style="color:var(--on-var);text-decoration:none">GitHub</a>
+          <a href="https://github.com/Nicominecith/Nicominecithmusic/releases" target="_blank" rel="noopener" style="color:var(--on-var);text-decoration:none">Releases</a>
+          <a href="https://github.com/Nicominecith/Nicominecithmusic/issues" target="_blank" rel="noopener" style="color:var(--on-var);text-decoration:none">Issues</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid var(--outline-var);padding-top:22px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px">
+      <p style="color:var(--outline);font-size:12px;margin:0">Nicht affiliiert mit Spotify oder Google.</p>
+      <p style="color:var(--outline);font-size:12px;margin:0">© 2026 Nicominecith Music</p>
+    </div>
+  </div>
+</footer>
+
+<div id="toast" style="position:fixed;bottom:16px;left:16px;right:16px;z-index:60;transform:translateY(140%);opacity:0;transition:all .3s;background:#121218;border:1px solid var(--outline-var);border-radius:16px;padding:14px 16px;display:flex;align-items:center;gap:12px;max-width:340px;margin:0 auto 0 auto;margin-bottom:env(safe-area-inset-bottom,0px)">
+  <div style="width:32px;height:32px;border-radius:10px;background:rgba(0,229,255,.15);color:var(--cyan);display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="fa-solid fa-download"></i></div>
+  <div><div style="font-weight:700;font-size:13.5px">Download gestartet!</div><div style="font-size:11.5px;color:var(--on-var)">Danke für den Download.</div></div>
+</div>
+
+<style>
+@media(min-width:900px){.dnav{display:flex!important}.mnav{display:none!important}.hleft{text-align:left!important}.hright{display:flex!important}}
+</style>
+
+<script>
+const items=[["Lo-fi Beats","Playlist"],["Workout Mix","Spotify"],["Chill Focus","YouTube"],["Top Hits 2026","Playlist"],["Indie Diskoveries","Spotify"],["Live Sessions","YouTube"],["Deep House","Playlist"],["Roadtrip Radio","Spotify"],["Late Night","YouTube"],["Throwback 2010s","Playlist"]];
+const colors=["#00e5ff","#ff9900","#4a9eff","#1db954","#ff2d2d"];
+function chip(){return items.map((it,i)=>{const c=colors[i%colors.length];return `<div style="flex-shrink:0;width:80px;height:80px;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px;margin:0 8px;background:${c}18;border:1px solid ${c}30"><div style="width:40px;height:40px;border-radius:10px;margin-bottom:5px;background:linear-gradient(135deg,${c}90,${c}25)"></div><div style="width:64px;text-align:center;font-weight:700;font-size:7px;line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${it[0]}</div><div style="width:64px;text-align:center;font-size:6px;color:${c};margin-top:1px" class="mono">${it[1]}</div></div>`;}).join('');}
+document.getElementById('mqTrack').innerHTML=chip()+chip();
+
+function faq(btn){
+  const c=btn.nextElementSibling, i=btn.querySelector('i');
+  const open=c.style.display==='block';
+  c.style.display=open?'none':'block';
+  i.style.transform=open?'rotate(0deg)':'rotate(180deg)';
+}
+function toast(){
+  const t=document.getElementById('toast');
+  t.style.transform='translateY(0)'; t.style.opacity='1';
+  setTimeout(()=>{t.style.transform='translateY(140%)';t.style.opacity='0';},4000);
+}
+function toggleMenu(){
+  const m=document.getElementById('mobileMenu'), i=document.getElementById('mIcon');
+  const open=m.classList.toggle('open');
+  i.className=open?'fa-solid fa-xmark':'fa-solid fa-bars';
+}
+window.addEventListener('scroll',()=>{
+  document.getElementById('hdr').classList.toggle('solid', window.scrollY>10);
+});
+</script>
+</body>
+</html>
