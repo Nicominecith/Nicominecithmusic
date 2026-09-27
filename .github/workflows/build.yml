@@ -136,13 +136,22 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Restore Persistent Keystore
+      - name: Generate Debug Keystore
         run: |
-          echo "${{ secrets.DEBUG_KEYSTORE }}" | base64 -d > ./app/persistent-debug.keystore
+          keytool -genkeypair -v \
+            -keystore app/workflow-debug.keystore \
+            -storepass android \
+            -alias androiddebugkey \
+            -keypass android \
+            -keyalg RSA \
+            -keysize 2048 \
+            -validity 10000 \
+            -dname "CN=Nicominecith Musik Debug,O=Nicominecith,C=DE"
 
       - name: Build Debug APK and Run Lint
         run: ./gradlew --console=plain assemble${{ matrix.variantName }}Debug :app:lint${{ matrix.variantName }}Debug --warning-mode summary
         env:
+          METROLIST_DEBUG_KEYSTORE_PATH: workflow-debug.keystore
           METROLIST_APPLICATION_ID: com.nicominecith.musik
           METROLIST_APP_NAME: Nicominecith Musik Nightly
           PULL_REQUEST: "false"
