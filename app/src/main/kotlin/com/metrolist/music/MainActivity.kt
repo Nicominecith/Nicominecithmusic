@@ -94,6 +94,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.fastAny
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
@@ -433,13 +434,66 @@ class MainActivity : ComponentActivity() {
         }
 
         setContent {
-            MetrolistApp(
-                latestVersionName = latestVersionName,
-                onLatestVersionNameChange = { latestVersionName = it },
-                playerConnection = playerConnectionSnapshot,
-                database = database,
-                downloadUtil = downloadUtil,
-                syncUtils = syncUtils,
+            // Custom in-app boot screen: a purple/navy gradient with the logo and app
+            // name, shown briefly on top of the real content and then faded out. This is
+            // separate from the OS-level splash (which can only show a flat color) and
+            // gives the richer look. Skipped entirely when the setting is off.
+            var showCustomSplash by remember {
+                mutableStateOf(dataStore.get(SplashScreenEnabledKey, true))
+            }
+            LaunchedEffect(Unit) {
+                if (showCustomSplash) {
+                    delay(900)
+                    showCustomSplash = false
+                }
+            }
+
+            Box(modifier = Modifier.fillMaxSize()) {
+                MetrolistApp(
+                    latestVersionName = latestVersionName,
+                    onLatestVersionNameChange = { latestVersionName = it },
+                    playerConnection = playerConnectionSnapshot,
+                    database = database,
+                    downloadUtil = downloadUtil,
+                    syncUtils = syncUtils,
+                )
+                AnimatedVisibility(
+                    visible = showCustomSplash,
+                    exit = fadeOut(animationSpec = tween(450)),
+                ) {
+                    NicominecithBootScreen()
+                }
+            }
+        }
+    }
+
+    @Composable
+    private fun NicominecithBootScreen() {
+        androidx.compose.foundation.layout.Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    androidx.compose.ui.graphics.Brush.verticalGradient(
+                        colors = listOf(
+                            androidx.compose.ui.graphics.Color(0xFF171F2A),
+                            androidx.compose.ui.graphics.Color(0xFF3A2C55),
+                        )
+                    )
+                ),
+            horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally,
+            verticalArrangement = androidx.compose.foundation.layout.Arrangement.Center,
+        ) {
+            androidx.compose.foundation.Image(
+                painter = androidx.compose.ui.res.painterResource(id = R.drawable.ic_splash_mark),
+                contentDescription = null,
+                modifier = Modifier.size(180.dp),
+            )
+            androidx.compose.foundation.layout.Spacer(modifier = Modifier.height(16.dp))
+            androidx.compose.material3.Text(
+                text = "Nicominecith Musik",
+                color = androidx.compose.ui.graphics.Color.White,
+                fontSize = 20.sp,
+                fontWeight = androidx.compose.ui.text.font.FontWeight.SemiBold,
             )
         }
     }
